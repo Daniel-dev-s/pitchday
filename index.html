@@ -32,6 +32,7 @@
         --gutter: clamp(1rem, 3.5vw, 3.125rem);
         --container: min(calc(100vw - (var(--gutter) * 2)), 83.75rem);
         --shadow: 0 10px 40px rgba(17, 26, 58, 0.08);
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
       }
 
       * {
@@ -165,7 +166,12 @@
       .hero {
         margin-top: clamp(2rem, 3.25vw, 2.95rem);
         background-color: var(--blue-dark);
-        background-image: url("img/main-banner-bg.svg");
+        background-image: url("img/main-banner-bg-high-res.png");
+        background-image: image-set(
+          url("img/main-banner-bg-high-res.avif") type("image/avif"),
+          url("img/main-banner-bg-high-res.webp") type("image/webp"),
+          url("img/main-banner-bg-high-res.png") type("image/png")
+        );
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -312,8 +318,24 @@
           transform: translateX(-50%);
         }
       }
+      @keyframes floatUp {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .reveal {
+        animation: floatUp 0.7s var(--ease) both;
+      }
       @media (prefers-reduced-motion: reduce) {
         .ticker-track {
+          animation: none;
+        }
+        .reveal {
           animation: none;
         }
       }
@@ -1163,6 +1185,10 @@
           padding-inline: 1.25rem;
           border-radius: 0 0 var(--panel-radius) var(--panel-radius);
         }
+      .hero,
+      .panel {
+        border-radius: 0;
+      }
         .site-nav .btn-blue {
           order: 2;
           width: 100%;
@@ -1766,6 +1792,39 @@
         if (e.key === "Escape" && modal.classList.contains("open"))
           closeModal();
       });
+
+      const revealTargets = document.querySelectorAll(
+        ".hero, .ticker, .panel, .prize-card, .step-card, .score-card, .criteria-card, .idea-card, .form-field, .form-row, footer",
+      );
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (!reduceMotion && "IntersectionObserver" in window) {
+        revealTargets.forEach((el) => {
+          el.style.opacity = "0";
+        });
+        const revealObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry, index) => {
+              if (!entry.isIntersecting) return;
+
+              const el = entry.target;
+              const delay = el.dataset.delay
+                ? Number(el.dataset.delay)
+                : (index % 4) * 70;
+
+              el.style.opacity = "";
+              el.style.animationDelay = `${delay}ms`;
+              el.classList.add("reveal");
+              revealObserver.unobserve(el);
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+        );
+
+        revealTargets.forEach((el) => revealObserver.observe(el));
+      }
     </script>
   </body>
 </html>
