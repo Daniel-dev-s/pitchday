@@ -339,16 +339,6 @@
           animation: none;
         }
       }
-      @media (min-width: 90.0625rem) {
-        .ticker-track {
-          animation: none;
-          width: 100%;
-          justify-content: center;
-        }
-        .ticker-line:nth-child(2) {
-          display: none;
-        }
-      }
       @media (min-width: 64rem) {
         .site-nav {
           justify-content: space-between;
@@ -1181,14 +1171,19 @@
           display: none;
         }
         .site-nav {
+          display: none;
           align-items: flex-start;
           padding-inline: 1.25rem;
           border-radius: 0 0 var(--panel-radius) var(--panel-radius);
         }
-      .hero,
-      .panel {
-        border-radius: 0;
-      }
+        .hero {
+          margin-top: 0;
+        }
+
+        .hero,
+        .panel {
+          border-radius: 0;
+        }
         .site-nav .btn-blue {
           order: 2;
           width: 100%;
@@ -1390,7 +1385,8 @@
       <div class="ticker" aria-label="Этапы pitch day">
         <div class="ticker-track">
           <span class="ticker-line"
-            >Предлагай <span class="sep">✦</span> Собирай
+            ><span class="sep">✦</span>Предлагай
+            <span class="sep">✦</span> Собирай
             <span class="sep">✦</span> Отправляй
             <span class="sep">✦</span> Прокачивай
             <span class="sep">✦</span> Запускай
@@ -1398,7 +1394,8 @@
             <span class="sep">✦</span> Побеждай</span
           >
           <span class="ticker-line" aria-hidden="true"
-            >Предлагай <span class="sep">✦</span> Собирай
+            ><span class="sep">✦</span>Предлагай
+            <span class="sep">✦</span> Собирай
             <span class="sep">✦</span> Отправляй
             <span class="sep">✦</span> Прокачивай
             <span class="sep">✦</span> Запускай
