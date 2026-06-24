@@ -1,1329 +1,1753 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>VEB Summer Pitch Day | Подай идею</title>
-  <meta name="description" content="Летний конкурс идей для клиентов банка БелВЭБ. Предложи решение, технологию или продукт — 25 июля 2026.">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #eeeff3;
-      --ink: #09081f;
-      --ink-soft: rgba(9, 8, 31, 0.6);
-      --blue: #3b79ff;
-      --blue-dark: #0f1228;
-      --chip: #e1e7f7;
-      --white: #ffffff;
-      --lime: #cff810;
-      --panel-radius: clamp(1.5rem, 2.78vw, 2.5rem);
-      --card-radius: clamp(1.25rem, 2.78vw, 2.5rem);
-      --small-radius: clamp(1rem, 1.67vw, 1.5rem);
-      --gutter: clamp(1rem, 3.5vw, 3.125rem);
-      --container: min(calc(100vw - (var(--gutter) * 2)), 83.75rem);
-      --shadow: 0 10px 40px rgba(17, 26, 58, 0.08);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "Manrope", system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.5;
-      overflow-x: clip;
-    }
-
-    img { display: block; max-width: 100%; }
-    .container { width: var(--container); margin-inline: auto; }
-    .stack { display: grid; gap: clamp(1.5rem, 5.55vw, 5rem); margin-block: clamp(1.5rem, 4.2vw, 3.8rem); }
-    .section-pad { padding: clamp(2rem, 4.75vw, 4.25rem); }
-    .h2 {
-      font-size: clamp(2.4rem, 5.2vw, 4.7rem);
-      line-height: 1.1;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-    }
-    .sub {
-      color: var(--ink-soft);
-      font-size: clamp(1rem, 1.53vw, 1.375rem);
-      line-height: 1.3;
-    }
-
-    .site-nav {
-      width: 100vw;
-      min-height: clamp(5rem, 7.78vw, 7rem);
-      margin-left: calc((100% - 100vw) / 2);
-      background: var(--white);
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: var(--panel-radius);
-      border-bottom-left-radius: var(--panel-radius);
-      padding: clamp(1rem, 1.95vw, 1.75rem) max(1.25rem, calc((100vw - 83.75rem) / 2 + 4.6875rem));
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .logo { width: clamp(7rem, 11.6vw, 10.45rem); flex: 0 0 auto; }
-    .menu { display: flex; gap: clamp(1rem, 2.78vw, 2.5rem); flex-wrap: wrap; }
-    .menu a {
-      position: relative;
-      text-decoration: none;
-      color: var(--ink);
-      font-size: clamp(0.9rem, 1.11vw, 1rem);
-      line-height: normal;
-      font-weight: 500;
-      white-space: nowrap;
-    }
-    .menu a:first-child::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: calc(100% + 0.9rem);
-      width: 6rem;
-      height: 0.875rem;
-      background: url("img/emphasize.svg") center / contain no-repeat;
-      transform: translateX(-50%);
-      pointer-events: none;
-    }
-    .site-nav .btn-blue {
-      min-height: 2.25rem;
-      padding: 0.32rem 1.3125rem;
-      font-size: clamp(0.9rem, 1.11vw, 1rem);
-      font-weight: 500;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      border: 0;
-      border-radius: 999rem;
-      text-decoration: none;
-      cursor: pointer;
-      font-size: clamp(0.9rem, 1.25vw, 1.125rem);
-      line-height: 1;
-      min-height: 3.125rem;
-      padding: 0.35rem 1.3rem;
-      font-weight: 700;
-    }
-    .btn-blue { background: var(--blue); color: var(--white); }
-    .btn-lime { background: var(--lime); color: var(--ink); }
-    .btn-ghost { border: 1px solid rgba(255, 255, 255, 0.35); color: var(--white); background: transparent; }
-
-    .hero {
-      margin-top: clamp(2rem, 3.25vw, 2.95rem);
-      background-color: var(--blue-dark);
-      background-image: url("img/main-banner-bg.svg");
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      border-radius: var(--panel-radius);
-      color: var(--white);
-      padding: clamp(1.5rem, 3.5vw, 3.125rem) clamp(1.5rem, 5.6vw, 4.7rem);
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 1340 / 642;
-      min-height: 28rem;
-    }
-    .hero > * { position: relative; z-index: 2; }
-    .hero-tag {
-      position: absolute;
-      left: 5.6%;
-      top: 7.8%;
-      display: inline-flex;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 999rem;
-      min-height: 3rem;
-      align-items: center;
-      padding: 0.7rem 1.5rem;
-      font-size: clamp(0.74rem, 1.11vw, 1rem);
-      letter-spacing: 0.06em;
-      color: rgba(255, 255, 255, 0.92);
-      margin-bottom: 0;
-    }
-    .hero-title-wrap {
-      position: absolute;
-      left: 4.7%;
-      top: 38.6%;
-      width: fit-content;
-      max-width: 100%;
-    }
-    .hero-headline {
-      font-size: clamp(4.35rem, 11vw, 9.9rem);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 0.78;
-    }
-    .hero-emphasis {
-      position: absolute;
-      width: clamp(4.8rem, 11.6vw, 10.45rem);
-      left: clamp(16.8rem, 30.05vw, 25.15rem);
-      top: clamp(0.45rem, 0.9vw, 0.95rem);
-      pointer-events: none;
-    }
-    .hero-capsule {
-      display: inline-block;
-      background: var(--blue);
-      border-radius: 999rem;
-      font-size: 0.644em;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      padding: 0.08em 0.34em 0.18em;
-      transform: rotate(-4deg);
-      transform-origin: left center;
-    }
-    .hero-copy {
-      position: absolute;
-      left: clamp(1.5rem, 5.6vw, 4.7rem);
-      top: 83.6%;
-      bottom: auto;
-      margin-top: 0;
-      color: rgba(255, 255, 255, 0.62);
-      width: 47.8%;
-      max-width: 40rem;
-      font-size: clamp(1.1rem, 1.8vw, 1.625rem);
-      line-height: 1.3;
-      font-weight: 500;
-    }
-    .hero-actions {
-      position: absolute;
-      right: clamp(1.5rem, 5.6vw, 4.7rem);
-      top: 84.4%;
-      bottom: auto;
-      margin-top: 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 0.9rem;
-    }
-    .hero-actions .btn {
-      min-height: 3.125rem;
-      font-weight: 700;
-    }
-    .hero-actions .btn-lime {
-      gap: 0.95rem;
-      padding: 0.31rem 0.31rem 0.31rem 1.32rem;
-    }
-    .play-dot {
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 50%;
-      background: var(--ink);
-      display: inline-grid;
-      place-items: center;
-      flex: 0 0 auto;
-    }
-    .play-dot img {
-      width: 0.72rem;
-      height: auto;
-      margin-left: 0.12rem;
-    }
-
-    .ticker {
-      width: 100vw;
-      margin-left: calc((100% - 100vw) / 2);
-      margin-top: clamp(2rem, 3.8vw, 3.45rem);
-      background: var(--ink);
-      color: var(--white);
-      border-radius: 0;
-      padding-block: clamp(1.35rem, 2.85vw, 2.55rem);
-      white-space: nowrap;
-      overflow: hidden;
-      scrollbar-width: none;
-      font-size: clamp(1.05rem, 1.95vw, 1.75rem);
-    }
-    .ticker::-webkit-scrollbar { display: none; }
-    .ticker-track {
-      display: flex;
-      width: max-content;
-      animation: ticker-scroll 22s linear infinite;
-      will-change: transform;
-    }
-    .ticker-line {
-      flex: 0 0 auto;
-      padding-inline: clamp(1.25rem, 3.5vw, 3.125rem);
-    }
-    .ticker .sep { color: var(--lime); margin-inline: 0.5rem; }
-    @keyframes ticker-scroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .ticker-track { animation: none; }
-    }
-    @media (min-width: 90.0625rem) {
-      .ticker-track {
-        animation: none;
-        width: 100%;
-        justify-content: center;
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>VEB Summer Pitch Day | Подай идею</title>
+    <meta
+      name="description"
+      content="Летний конкурс идей для клиентов банка БелВЭБ. Предложи решение, технологию или продукт — 25 июля 2026."
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #eeeff3;
+        --ink: #09081f;
+        --ink-soft: rgba(9, 8, 31, 0.6);
+        --blue: #3b79ff;
+        --blue-dark: #0f1228;
+        --chip: #e1e7f7;
+        --white: #ffffff;
+        --lime: #cff810;
+        --panel-radius: clamp(1.5rem, 2.78vw, 2.5rem);
+        --card-radius: clamp(1.25rem, 2.78vw, 2.5rem);
+        --small-radius: clamp(1rem, 1.67vw, 1.5rem);
+        --gutter: clamp(1rem, 3.5vw, 3.125rem);
+        --container: min(calc(100vw - (var(--gutter) * 2)), 83.75rem);
+        --shadow: 0 10px 40px rgba(17, 26, 58, 0.08);
       }
-      .ticker-line:nth-child(2) { display: none; }
-    }
 
-    .panel {
-      border-radius: var(--panel-radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-    }
-    .panel-white { background: var(--white); }
-    .panel-blue { background: var(--blue); color: var(--white); }
-    .panel-dark { background: var(--blue-dark); color: var(--white); }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Manrope", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.5;
+        overflow-x: clip;
+      }
 
-    .prize-grid {
-      display: grid;
-      gap: clamp(0.85rem, 1vw, 0.95rem);
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      margin-top: clamp(3rem, 4.2vw, 3.75rem);
-    }
-    .prize-card {
-      border-radius: var(--card-radius);
-      padding: clamp(1.4rem, 2.45vw, 2.2rem);
-      display: grid;
-      gap: clamp(1.3rem, 2.1vw, 1.9rem);
-      min-height: 16.125rem;
-      align-content: start;
-      overflow: hidden;
-      position: relative;
-    }
-    .prize-card > :not(.prize-visual) { position: relative; z-index: 1; }
-    .prize-main { background: var(--blue); color: var(--white); }
-    .prize-sub { background: #f4f7fe; }
-    .prize-visual {
-      position: absolute;
-      top: clamp(1.1rem, 1.5vw, 1.4rem);
-      right: clamp(-0.45rem, 0.7vw, 1.3rem);
-      width: clamp(5.5rem, 9vw, 9rem);
-      max-width: 36%;
-      pointer-events: none;
-    }
-    .prize-main .prize-visual { max-width: 31%; }
-    .badge {
-      width: fit-content;
-      padding: 0.4rem 0.75rem;
-      border-radius: 999rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--white);
-      background: var(--ink);
-    }
-    .prize-main .badge { color: var(--ink); background: var(--lime); }
-    .prize-name { font-size: clamp(1.25rem, 2vw, 2rem); font-weight: 800; letter-spacing: -0.02em; }
-    .prize-desc { color: var(--ink-soft); font-size: 1rem; }
-    .prize-main .prize-desc { color: rgba(255, 255, 255, 0.75); }
-    #prizes {
-      min-height: clamp(32rem, 40.84vw, 36.75rem);
-      padding: clamp(4rem, 5.9vw, 5.3125rem) clamp(2rem, 4.72vw, 4.25rem);
-    }
-    #prizes .h2 {
-      font-size: clamp(3.4rem, 5.2vw, 4.6875rem);
-      line-height: 1.3;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    #prizes .sub {
-      margin-top: clamp(1.3rem, 2.43vw, 2.1875rem);
-      font-size: clamp(1rem, 1.53vw, 1.375rem);
-      line-height: 1.3;
-    }
-    #prizes .prize-grid {
-      gap: clamp(0.75rem, 0.97vw, 0.875rem);
-      margin-top: clamp(2.5rem, 4.16vw, 3.75rem);
-    }
-    #prizes .prize-card {
-      min-height: 16.125rem;
-      padding: clamp(1.5rem, 2.08vw, 1.875rem) clamp(1.6rem, 2.43vw, 2.1875rem);
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-    #prizes .badge {
-      min-height: 2.56rem;
-      padding: 0.5rem 1.25rem;
-      font-size: clamp(0.95rem, 1.25vw, 1.125rem);
-      line-height: 1.4;
-      font-weight: 500;
-    }
-    #prizes .prize-name {
-      margin-top: auto;
-      margin-bottom: clamp(1.3rem, 2.08vw, 1.875rem);
-      font-size: clamp(1.45rem, 2.22vw, 2rem);
-      line-height: 1.3;
-      font-weight: 700;
-    }
-    #prizes .prize-desc {
-      font-size: clamp(1rem, 1.25vw, 1.125rem);
-      line-height: 1.3;
-    }
-    #prizes .prize-visual {
-      top: clamp(1.25rem, 1.53vw, 1.375rem);
-      right: clamp(-0.2rem, 1vw, 1.25rem);
-      width: clamp(7rem, 10vw, 9rem);
-    }
-
-    .chip-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 1rem;
-      margin-bottom: 1.3rem;
-    }
-    .chip {
-      background: var(--chip);
-      color: var(--ink);
-      border-radius: 999rem;
-      padding: 0.62rem 0.95rem;
-      font-size: clamp(0.86rem, 1.3vw, 1rem);
-    }
-    .idea-card {
-      margin-top: 1.2rem;
-      background: #f4f7fe;
-      border-radius: var(--card-radius);
-      padding: clamp(1.4rem, 2.45vw, 2.75rem) clamp(1.1rem, 2.45vw, 2.2rem);
-      color: var(--ink);
-    }
-    #what {
-      min-height: clamp(32rem, 49.86vw, 44.875rem);
-      padding: clamp(4rem, 6.86vw, 6.19rem) clamp(2rem, 4.72vw, 4.25rem);
-      overflow: hidden;
-      isolation: isolate;
-    }
-    #what::before {
-      content: "";
-      position: absolute;
-      inset: -60% -10% -55% 18%;
-      z-index: -1;
-      background: url("img/has-idea.svg") center / contain no-repeat;
-      opacity: 0.8;
-      transform: rotate(0.01deg);
-      pointer-events: none;
-    }
-    .has-idea-content {
-      position: relative;
-      z-index: 1;
-      width: min(100%, 75rem);
-    }
-    #what .h2 {
-      font-size: clamp(3rem, 6.25vw, 5.625rem);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-    }
-    .has-idea-lead {
-      width: min(100%, 70.125rem);
-      margin-top: clamp(1.2rem, 2.43vw, 2.19rem);
-      color: rgba(255, 255, 255, 0.6);
-      font-size: clamp(1rem, 1.53vw, 1.375rem);
-      line-height: 1.3;
-      font-weight: 400;
-    }
-    #what .idea-card {
-      width: min(100%, 75.2rem);
-      margin-top: clamp(3rem, 5.55vw, 5rem);
-      border-radius: var(--card-radius);
-      padding: clamp(1.7rem, 3.05vw, 2.75rem) clamp(1.35rem, 2.43vw, 2.19rem);
-    }
-    .idea-card-title {
-      font-size: clamp(1.35rem, 2.22vw, 2rem);
-      line-height: 1.3;
-      letter-spacing: -0.02em;
-      font-weight: 700;
-    }
-    #what .chip-wrap {
-      width: min(100%, 68.375rem);
-      margin-top: clamp(1.6rem, 2.36vw, 2.125rem);
-      margin-bottom: clamp(1.6rem, 2.36vw, 2.125rem);
-      gap: 1rem;
-    }
-    #what .chip {
-      padding: 0.9rem 1rem;
-      background: var(--chip);
-      font-size: clamp(0.95rem, 1.25vw, 1.125rem);
-      line-height: 1.3;
-    }
-    .idea-submit {
-      gap: 0.65rem;
-      min-height: 3.125rem;
-      padding: 0.31rem 0.31rem 0.31rem 1.32rem;
-      font-size: clamp(1rem, 1.25vw, 1.125rem);
-      font-weight: 700;
-    }
-
-    .steps-grid { display: grid; gap: clamp(0.85rem, 1.18vw, 1.06rem); grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .step-card {
-      background: #f4f7fe;
-      border-radius: var(--card-radius);
-      padding: clamp(1.25rem, 2.08vw, 1.875rem);
-      min-height: 19.6rem;
-      display: grid;
-      gap: 1.55rem;
-      align-content: start;
-    }
-    .step-n { color: var(--blue); font-weight: 800; font-size: 1.2rem; }
-    .step-title { font-size: clamp(1.05rem, 1.9vw, 1.5rem); font-weight: 700; }
-    .step-copy { color: var(--ink-soft); }
-    #how {
-      min-height: clamp(64rem, 85.42vw, 76.875rem);
-      padding: clamp(4rem, 6.94vw, 6.25rem) clamp(2rem, 4.72vw, 4.25rem);
-    }
-    #how > .h2,
-    #who .h2 {
-      font-size: clamp(3.4rem, 6.25vw, 5.625rem);
-      line-height: 1.3;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    #how .steps-grid {
-      gap: clamp(0.8rem, 1.18vw, 1.0625rem);
-      margin-top: clamp(3rem, 4.44vw, 4rem);
-    }
-    #how .step-card {
-      min-height: 19.625rem;
-      padding: clamp(1.25rem, 1.39vw, 1.25rem) clamp(0.75rem, 0.83vw, 0.75rem) clamp(3rem, 4.86vw, 4.375rem) clamp(1.5rem, 2.08vw, 1.875rem);
-      gap: clamp(1.25rem, 1.74vw, 1.5625rem);
-    }
-    #how .step-n {
-      font-size: clamp(1.25rem, 1.8vw, 1.625rem);
-      line-height: normal;
-      font-weight: 800;
-    }
-    #how .step-title {
-      font-size: clamp(1.3rem, 1.8vw, 1.625rem);
-      line-height: 1.3;
-      font-weight: 700;
-    }
-    #how .step-copy {
-      font-size: clamp(1rem, 1.25vw, 1.125rem);
-      line-height: 1.33;
-      color: rgba(0, 0, 0, 0.6);
-    }
-    #who {
-      margin-top: clamp(2.5rem, 3.19vw, 2.875rem);
-    }
-    #who .h2 {
-      line-height: 1.1;
-    }
-    #who .sub {
-      margin-top: clamp(2rem, 2.92vw, 2.625rem);
-      font-size: clamp(1rem, 1.53vw, 1.375rem);
-      line-height: 1.33;
-    }
-
-    .score-grid { display: grid; gap: clamp(1rem, 1.4vw, 1.25rem); grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: clamp(2rem, 3.8vw, 3.45rem); }
-    .score-card {
-      border-radius: var(--card-radius);
-      padding: clamp(1.35rem, 2.45vw, 2.2rem);
-      min-height: 16.875rem;
-      display: grid;
-      gap: clamp(1.2rem, 2.1vw, 1.9rem);
-      align-content: start;
-      overflow: hidden;
-      position: relative;
-    }
-    .score-card > :not(.score-visual) { position: relative; z-index: 1; }
-    .score-blue { background: var(--blue); color: var(--white); }
-    .score-lime { background: var(--lime); color: var(--ink); }
-    .score-visual {
-      position: absolute;
-      right: clamp(0.5rem, 2vw, 2rem);
-      top: clamp(1rem, 2vw, 1.9rem);
-      width: clamp(5.8rem, 10vw, 9.2rem);
-      max-width: 38%;
-      pointer-events: none;
-    }
-    .score-lime .score-visual {
-      width: clamp(4.8rem, 7vw, 6.25rem);
-      right: clamp(1.1rem, 2.4vw, 2.5rem);
-      top: clamp(0.9rem, 1.4vw, 1.25rem);
-    }
-    .score-n {
-      width: fit-content;
-      background: var(--white);
-      color: var(--ink);
-      border-radius: 999rem;
-      padding: 0.3rem 0.7rem;
-      font-size: 0.8rem;
-      font-weight: 700;
-    }
-    .score-lime .score-n { background: var(--ink); color: var(--white); }
-    .score-title { font-size: clamp(1.05rem, 2vw, 1.65rem); font-weight: 800; line-height: 1.15; }
-    .score-copy { color: rgba(255, 255, 255, 0.84); }
-    .score-lime .score-copy { color: rgba(9, 8, 31, 0.75); }
-    #who .score-grid {
-      gap: clamp(1rem, 1.39vw, 1.25rem);
-      margin-top: clamp(2.8rem, 3.82vw, 3.4375rem);
-    }
-    #who .score-card {
-      min-height: 16.875rem;
-      padding: clamp(1.5rem, 2.08vw, 1.875rem) clamp(1.75rem, 2.43vw, 2.1875rem);
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-    #who .score-n {
-      padding: 0.5rem 1.25rem;
-      font-size: clamp(1rem, 1.25vw, 1.125rem);
-      line-height: 1.4;
-      font-weight: 500;
-    }
-    #who .score-title {
-      margin-top: auto;
-      margin-bottom: clamp(1.4rem, 2.08vw, 1.875rem);
-      font-size: clamp(1.55rem, 2.22vw, 2rem);
-      line-height: 1.3;
-      font-weight: 700;
-    }
-    #who .score-copy {
-      width: min(100%, 20.4375rem);
-      font-size: clamp(1rem, 1.25vw, 1.125rem);
-      line-height: 1.33;
-      color: var(--white);
-    }
-    #who .score-lime .score-copy {
-      color: var(--ink);
-    }
-    #who .score-visual {
-      top: clamp(1.25rem, 2.08vw, 1.875rem);
-      right: clamp(1.4rem, 2.3vw, 2.05rem);
-      width: clamp(6.5rem, 9.17vw, 8.25rem);
-      max-width: 38%;
-    }
-    #who .score-lime .score-visual {
-      top: clamp(1rem, 1.39vw, 1.25rem);
-      right: clamp(1.6rem, 2.28vw, 2.06rem);
-      width: clamp(5.6rem, 6.94vw, 6.25rem);
-      max-width: 30%;
-    }
-    .winner-note {
-      position: relative;
-      width: fit-content;
-      margin: clamp(1.35rem, 1.95vw, 1.75rem) auto 0;
-      font-size: clamp(1rem, 1.53vw, 1.375rem);
-      line-height: 1.33;
-      font-weight: 600;
-      text-align: center;
-    }
-    .winner-word {
-      position: relative;
-      display: inline-block;
-    }
-    .winner-emphasis {
-      position: absolute;
-      left: 50%;
-      top: calc(100% + 0.25rem);
-      transform: translateX(-50%);
-      width: clamp(6.7rem, 9.65vw, 8.6875rem);
-      height: auto;
-      pointer-events: none;
-    }
-
-    .criteria-wrap {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.8rem;
-      margin-top: 1.2rem;
-    }
-    .criteria-card {
-      background: var(--white);
-      border-radius: var(--small-radius);
-      color: var(--ink);
-      padding: clamp(1.25rem, 2.45vw, 2.2rem);
-      display: grid;
-      gap: 0.5rem;
-      align-content: start;
-    }
-    .criteria-title { display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem; font-weight: 800; }
-    .criteria-index { color: var(--blue); }
-    .criteria-section {
-      min-height: clamp(42rem, 53.54vw, 48.1875rem);
-      padding: clamp(3.5rem, 6.39vw, 5.75rem) clamp(2rem, 5.21vw, 4.6875rem);
-      overflow: hidden;
-      isolation: isolate;
-    }
-    .criteria-section::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background: url("img/what-estimate.svg") center / cover no-repeat;
-      pointer-events: none;
-    }
-    .criteria-section > * {
-      position: relative;
-      z-index: 1;
-    }
-    .criteria-section .h2 {
-      width: min(100%, 41.5625rem);
-      font-size: clamp(3.4rem, 6.25vw, 5.625rem);
-      line-height: 1.3;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .criteria-section .criteria-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: clamp(1rem, 1.46vw, 1.3125rem);
-      width: min(100%, 74.375rem);
-      margin-top: clamp(3rem, 4.17vw, 3.75rem);
-    }
-    .criteria-section .criteria-card {
-      width: min(100%, 32.5625rem);
-      min-height: 8.375rem;
-      padding: 1.875rem 2.1875rem;
-      border-radius: var(--small-radius);
-      gap: 1rem;
-      overflow: hidden;
-    }
-    .criteria-section .criteria-card:nth-child(n + 3):nth-child(-n + 4) {
-      width: min(100%, 36.4375rem);
-    }
-    .criteria-section .criteria-card:nth-child(5) {
-      width: min(100%, 52.3125rem);
-    }
-    .criteria-section .criteria-title {
-      gap: 0.875rem;
-      font-size: clamp(1.55rem, 1.94vw, 1.75rem);
-      line-height: 1.3;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .criteria-section .criteria-index {
-      font-weight: 800;
-    }
-    .criteria-section .criteria-card p {
-      font-size: clamp(1rem, 1.25vw, 1.125rem);
-      line-height: 1.33;
-    }
-
-    .contact-form {
-      margin-top: clamp(2rem, 3.6vw, 3.25rem);
-      display: grid;
-      gap: clamp(1.25rem, 2.1vw, 2.1rem);
-    }
-    label { font-size: 1rem; font-weight: 500; }
-    textarea, input[type="text"] {
-      width: 100%;
-      border: 0;
-      border-radius: var(--small-radius);
-      padding: 1.75rem 2.2rem;
-      font-family: inherit;
-      font-size: 1rem;
-      background: #f5f5f6;
-      color: var(--ink);
-    }
-    textarea { resize: vertical; min-height: 9rem; }
-    textarea:focus, input:focus { outline: 2px solid var(--blue); }
-    .field-error { outline: 2px solid #ff5d7d !important; }
-    .form-row { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: end; }
-    .help {
-      color: var(--lime);
-      font-size: clamp(0.88rem, 1.5vw, 1.05rem);
-      font-weight: 700;
-      text-wrap: balance;
-      max-width: 26rem;
-    }
-    .help a { color: var(--blue); }
-
-    #form {
-      min-height: clamp(40rem, 55.5vw, 49.94rem);
-      padding: clamp(3rem, 6.9vw, 6.2rem) clamp(2rem, 5.4vw, 4.75rem);
-      display: flex;
-      align-items: center;
-    }
-    .form-content {
-      width: min(100%, 74rem);
-      margin-inline: auto;
-    }
-    #form .h2 {
-      font-size: clamp(3.25rem, 6.25vw, 5.625rem);
-      line-height: 1.12;
-      letter-spacing: -0.022em;
-    }
-    #form .sub {
-      width: min(100%, 73.6rem);
-      margin-top: clamp(1rem, 2vw, 1.875rem);
-      color: rgba(255, 255, 255, 0.6);
-      font-size: clamp(1rem, 1.53vw, 1.375rem);
-      line-height: 1.32;
-    }
-    .form-field { display: grid; gap: 1.25rem; }
-    .form-field label {
-      color: var(--white);
-      font-size: clamp(1rem, 1.25vw, 1.125rem);
-      line-height: 1.35;
-      font-weight: 400;
-    }
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-    #form textarea,
-    #form input[type="text"] {
-      border-radius: var(--small-radius);
-      background: #f5f5f6;
-      color: var(--ink);
-      font-size: 1rem;
-      line-height: 1.5;
-      padding: 1.875rem 2.1875rem;
-    }
-    #form textarea {
-      min-height: 9rem;
-      max-height: 16rem;
-    }
-    #form input[type="text"] {
-      height: 5rem;
-      padding-block: 1.625rem;
-    }
-    #form textarea::placeholder,
-    #form input::placeholder {
-      color: rgba(9, 8, 31, 0.5);
-      opacity: 1;
-    }
-    #form .form-row {
-      display: flex;
-      align-items: center;
-      gap: clamp(1.5rem, 3.55vw, 3.1875rem);
-      margin-top: clamp(0.25rem, 0.8vw, 0.65rem);
-    }
-    #form .btn-submit {
-      width: 15.1875rem;
-      min-height: 4rem;
-      flex: 0 0 auto;
-      padding-inline: 1.5rem;
-      font-size: clamp(1rem, 1.25vw, 1.125rem);
-      white-space: nowrap;
-    }
-    #form .help {
-      max-width: none;
-      display: grid;
-      gap: 0.8rem;
-      color: var(--lime);
-      font-size: clamp(1rem, 1.53vw, 1.375rem);
-      line-height: 1.25;
-      font-weight: 700;
-      text-align: left;
-    }
-    #form .help span {
-      color: var(--white);
-      font-size: clamp(0.95rem, 1.25vw, 1.125rem);
-      font-weight: 400;
-    }
-    #form .help a {
-      color: var(--blue);
-      font: inherit;
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-    #form .help a:visited {
-      color: var(--blue);
-    }
-    #form .help a:hover {
-      color: #6fa0ff;
-    }
-
-    footer {
-      width: 100vw;
-      margin-left: calc((100% - 100vw) / 2);
-      margin-top: clamp(1.5rem, 4.2vw, 3.75rem);
-      background: var(--blue-dark);
-      color: rgba(255, 255, 255, 0.56);
-      border-top-left-radius: var(--panel-radius);
-      border-top-right-radius: var(--panel-radius);
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-      overflow: hidden;
-    }
-    .footer-inner {
-      width: min(calc(100vw - 15.625rem), 74.75rem);
-      min-height: clamp(8.75rem, 14vw, 12.5rem);
-      padding: clamp(2rem, 2.92vw, 2.625rem) 0;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .footer-logo { font-size: 1.35rem; color: var(--white); font-weight: 800; letter-spacing: -0.03em; }
-    .footer-logo img { width: clamp(8.5rem, 14.72vw, 13.25rem); }
-    .footer-inner p {
-      margin-top: clamp(1.8rem, 3.61vw, 3.25rem);
-      font-size: clamp(1rem, 1.25vw, 1.125rem);
-      line-height: normal;
-    }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      background: rgba(3, 4, 14, 0.56);
-      visibility: hidden;
-      opacity: 0;
-      transition: 0.2s ease;
-      z-index: 9;
-    }
-    .modal.open { visibility: visible; opacity: 1; }
-    .modal-card {
-      width: min(92vw, 30rem);
-      background: var(--white);
-      border-radius: 1.2rem;
-      padding: 1.5rem;
-      display: grid;
-      gap: 1rem;
-    }
-    .modal h3 { font-size: 1.4rem; }
-    .modal p { color: var(--ink-soft); }
-
-    @media (max-width: 64rem) {
-      .prize-grid, .steps-grid, .score-grid, .criteria-wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .form-row { grid-template-columns: 1fr; align-items: start; }
-      .hero {
-        background-position: 58% center;
-      }
-      #form { min-height: auto; align-items: stretch; }
-      #form .form-row { align-items: flex-start; flex-direction: column; }
-      #what { min-height: auto; }
-      #what::before { inset: -35% -45% -25% 8%; opacity: 0.55; }
-    }
-    @media (max-width: 44rem) {
-      .container {
-        width: 100dvw;
-        margin-inline: 0;
-      }
-      .site-nav,
-      .ticker,
-      footer {
-        width: 100dvw;
-        margin-left: 0;
-        max-width: 100dvw;
-      }
-      .prize-grid, .steps-grid, .score-grid, .criteria-wrap { grid-template-columns: 1fr; }
-      .menu {
-        order: 3;
-        width: 100%;
-        justify-content: flex-start;
-        gap: 0.55rem 0.8rem;
-      }
-      .menu a {
-        font-size: 0.72rem;
-      }
-      .site-nav {
-        align-items: flex-start;
-        padding-inline: 1.25rem;
-      }
-      .site-nav .btn-blue {
-        order: 2;
-        width: 100%;
-        margin-left: 0;
-      }
-      .hero-headline { line-height: 1.02; }
-      .hero {
-        min-height: 34rem;
-        aspect-ratio: auto;
-        background-image: none;
-        background-color: var(--blue-dark);
-      }
-      .hero-tag {
-        position: relative;
-        left: auto;
-        top: auto;
-        white-space: normal;
-      }
-      .hero-emphasis {
-        left: clamp(10.5rem, 43vw, 14rem);
-        right: auto;
-        top: -0.25rem;
-        width: 6rem;
-      }
-      .hero-title-wrap {
-        position: relative;
-        left: auto;
-        top: auto;
-        margin-top: clamp(6rem, 28vw, 8rem);
-        margin-left: 0;
-      }
-      .hero-copy,
-      .hero-actions {
-        position: relative;
-        left: auto;
-        right: auto;
-        top: auto;
-        bottom: auto;
+      img {
+        display: block;
         max-width: 100%;
       }
+      .container {
+        width: var(--container);
+        margin-inline: auto;
+      }
+      .stack {
+        display: grid;
+        gap: clamp(1.5rem, 5.55vw, 5rem);
+        margin-block: clamp(1.5rem, 4.2vw, 3.8rem);
+      }
+      .section-pad {
+        padding: clamp(2rem, 4.75vw, 4.25rem);
+      }
+      .h2 {
+        font-size: clamp(2.4rem, 5.2vw, 4.7rem);
+        line-height: 1.1;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+      .sub {
+        color: var(--ink-soft);
+        font-size: clamp(1rem, 1.53vw, 1.375rem);
+        line-height: 1.3;
+      }
+
+      .site-nav {
+        width: 100vw;
+        min-height: clamp(5rem, 7.78vw, 7rem);
+        margin-left: calc((100% - 100vw) / 2);
+        background: var(--white);
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: var(--panel-radius);
+        border-bottom-left-radius: var(--panel-radius);
+        padding: clamp(1rem, 1.95vw, 1.75rem)
+          max(1.25rem, calc((100vw - 83.75rem) / 2 + 4.6875rem));
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .logo {
+        width: clamp(7rem, 11.6vw, 10.45rem);
+        flex: 0 0 auto;
+      }
+      .menu {
+        display: flex;
+        gap: clamp(1rem, 2.78vw, 2.5rem);
+        flex-wrap: wrap;
+      }
+      .menu a {
+        position: relative;
+        text-decoration: none;
+        color: var(--ink);
+        font-size: clamp(0.9rem, 1.11vw, 1rem);
+        line-height: normal;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .menu a:first-child::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: calc(100% + 0.9rem);
+        width: 6rem;
+        height: 0.875rem;
+        background: url("img/emphasize.svg") center / contain no-repeat;
+        transform: translateX(-50%);
+        pointer-events: none;
+      }
+      .site-nav .btn-blue {
+        min-height: 2.25rem;
+        padding: 0.32rem 1.3125rem;
+        font-size: clamp(0.9rem, 1.11vw, 1rem);
+        font-weight: 500;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        border: 0;
+        border-radius: 999rem;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: clamp(0.9rem, 1.25vw, 1.125rem);
+        line-height: 1;
+        min-height: 3.125rem;
+        padding: 0.35rem 1.3rem;
+        font-weight: 700;
+      }
+      .btn-blue {
+        background: var(--blue);
+        color: var(--white);
+      }
+      .btn-lime {
+        background: var(--lime);
+        color: var(--ink);
+      }
+      .btn-ghost {
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        color: var(--white);
+        background: transparent;
+      }
+
+      .hero {
+        margin-top: clamp(2rem, 3.25vw, 2.95rem);
+        background-color: var(--blue-dark);
+        background-image: url("img/main-banner-bg.svg");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        border-radius: var(--panel-radius);
+        color: var(--white);
+        padding: clamp(1.5rem, 3.5vw, 3.125rem) clamp(1.5rem, 5.6vw, 4.7rem);
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 1340 / 642;
+        min-height: 28rem;
+      }
+      .hero > * {
+        position: relative;
+        z-index: 2;
+      }
+      .hero-tag {
+        position: absolute;
+        left: 5.6%;
+        top: 7.8%;
+        display: inline-flex;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 999rem;
+        min-height: 3rem;
+        align-items: center;
+        padding: 0.7rem 1.5rem;
+        font-size: clamp(0.74rem, 1.11vw, 1rem);
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.92);
+        margin-bottom: 0;
+      }
+      .hero-title-wrap {
+        position: absolute;
+        left: 4.7%;
+        top: 38.6%;
+        width: fit-content;
+        max-width: 100%;
+      }
+      .hero-headline {
+        font-size: clamp(4.35rem, 11vw, 9.9rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 0.78;
+      }
+      .hero-emphasis {
+        position: absolute;
+        width: clamp(4.8rem, 11.6vw, 10.45rem);
+        left: clamp(16.8rem, 30.05vw, 25.15rem);
+        top: clamp(0.45rem, 0.9vw, 0.95rem);
+        pointer-events: none;
+      }
+      .hero-capsule {
+        display: inline-block;
+        background: var(--blue);
+        border-radius: 999rem;
+        font-size: 0.644em;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        padding: 0.08em 0.34em 0.18em;
+        transform: rotate(-4deg);
+        transform-origin: left center;
+      }
       .hero-copy {
-        width: 100%;
-        max-width: none;
-        margin-top: 1.4rem;
+        position: absolute;
+        left: clamp(1.5rem, 5.6vw, 4.7rem);
+        top: 83.6%;
+        bottom: auto;
+        margin-top: 0;
+        color: rgba(255, 255, 255, 0.62);
+        width: 47.8%;
+        max-width: 40rem;
+        font-size: clamp(1.1rem, 1.8vw, 1.625rem);
+        line-height: 1.3;
+        font-weight: 500;
       }
-      .hero-actions { justify-content: flex-start; margin-top: 1.2rem; }
-      .hero-actions .btn { width: 100%; }
-      .step-card, .score-card, .prize-card { min-height: auto; }
-      .prize-visual, .score-visual {
-        opacity: 0.45;
-        right: 0.8rem;
-        width: 5rem;
+      .hero-actions {
+        position: absolute;
+        right: clamp(1.5rem, 5.6vw, 4.7rem);
+        top: 84.4%;
+        bottom: auto;
+        margin-top: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 0.9rem;
       }
-      textarea, input[type="text"] { padding: 1.1rem 1.2rem; }
-      #form { padding: 2.3rem 1.25rem; }
-      #form textarea,
-      #form input[type="text"] {
-        padding: 1.1rem 1.2rem;
+      .hero-actions .btn {
+        min-height: 3.125rem;
+        font-weight: 700;
       }
-      #form input[type="text"] { height: 4rem; }
-      #form .btn-submit { width: 100%; }
-      #what { padding: 2.5rem 1.25rem; }
-      #what .idea-card { margin-top: 2rem; }
-      #what .chip-wrap { gap: 0.6rem; }
-      #what .chip { width: 100%; white-space: normal; }
-      .idea-submit { width: 100%; }
+      .hero-actions .btn-lime {
+        gap: 0.95rem;
+        padding: 0.31rem 0.31rem 0.31rem 1.32rem;
+      }
+      .play-dot {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background: var(--ink);
+        display: inline-grid;
+        place-items: center;
+        flex: 0 0 auto;
+      }
+      .play-dot img {
+        width: 0.72rem;
+        height: auto;
+        margin-left: 0.12rem;
+      }
+
+      .ticker {
+        width: 100vw;
+        margin-left: calc((100% - 100vw) / 2);
+        margin-top: clamp(2rem, 3.8vw, 3.45rem);
+        background: var(--ink);
+        color: var(--white);
+        border-radius: 0;
+        padding-block: clamp(1.35rem, 2.85vw, 2.55rem);
+        white-space: nowrap;
+        overflow: hidden;
+        scrollbar-width: none;
+        font-size: clamp(1.05rem, 1.95vw, 1.75rem);
+      }
+      .ticker::-webkit-scrollbar {
+        display: none;
+      }
+      .ticker-track {
+        display: flex;
+        width: max-content;
+        animation: ticker-scroll 22s linear infinite;
+        will-change: transform;
+      }
+      .ticker-line {
+        flex: 0 0 auto;
+        padding-inline: clamp(1.25rem, 3.5vw, 3.125rem);
+      }
+      .ticker .sep {
+        color: var(--lime);
+        margin-inline: 0.5rem;
+      }
+      @keyframes ticker-scroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .ticker-track {
+          animation: none;
+        }
+      }
+      @media (min-width: 90.0625rem) {
+        .ticker-track {
+          animation: none;
+          width: 100%;
+          justify-content: center;
+        }
+        .ticker-line:nth-child(2) {
+          display: none;
+        }
+      }
+
+      .panel {
+        border-radius: var(--panel-radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: relative;
+      }
+      .panel-white {
+        background: var(--white);
+      }
+      .panel-blue {
+        background: var(--blue);
+        color: var(--white);
+      }
+      .panel-dark {
+        background: var(--blue-dark);
+        color: var(--white);
+      }
+
+      .prize-grid {
+        display: grid;
+        gap: clamp(0.85rem, 1vw, 0.95rem);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: clamp(3rem, 4.2vw, 3.75rem);
+      }
+      .prize-card {
+        border-radius: var(--card-radius);
+        padding: clamp(1.4rem, 2.45vw, 2.2rem);
+        display: grid;
+        gap: clamp(1.3rem, 2.1vw, 1.9rem);
+        min-height: 16.125rem;
+        align-content: start;
+        overflow: hidden;
+        position: relative;
+      }
+      .prize-card > :not(.prize-visual) {
+        position: relative;
+        z-index: 1;
+      }
+      .prize-main {
+        background: var(--blue);
+        color: var(--white);
+      }
+      .prize-sub {
+        background: #f4f7fe;
+      }
+      .prize-visual {
+        position: absolute;
+        top: clamp(1.1rem, 1.5vw, 1.4rem);
+        right: clamp(-0.45rem, 0.7vw, 1.3rem);
+        width: clamp(5.5rem, 9vw, 9rem);
+        max-width: 36%;
+        pointer-events: none;
+      }
+      .prize-main .prize-visual {
+        max-width: 31%;
+      }
+      .badge {
+        width: fit-content;
+        padding: 0.4rem 0.75rem;
+        border-radius: 999rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--white);
+        background: var(--ink);
+      }
+      .prize-main .badge {
+        color: var(--ink);
+        background: var(--lime);
+      }
+      .prize-name {
+        font-size: clamp(1.25rem, 2vw, 2rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .prize-desc {
+        color: var(--ink-soft);
+        font-size: 1rem;
+      }
+      .prize-main .prize-desc {
+        color: rgba(255, 255, 255, 0.75);
+      }
+      #prizes {
+        min-height: clamp(32rem, 40.84vw, 36.75rem);
+        padding: clamp(4rem, 5.9vw, 5.3125rem) clamp(2rem, 4.72vw, 4.25rem);
+      }
+      #prizes .h2 {
+        font-size: clamp(3.4rem, 5.2vw, 4.6875rem);
+        line-height: 1.3;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      #prizes .sub {
+        margin-top: clamp(1.3rem, 2.43vw, 2.1875rem);
+        font-size: clamp(1rem, 1.53vw, 1.375rem);
+        line-height: 1.3;
+      }
+      #prizes .prize-grid {
+        gap: clamp(0.75rem, 0.97vw, 0.875rem);
+        margin-top: clamp(2.5rem, 4.16vw, 3.75rem);
+      }
+      #prizes .prize-card {
+        min-height: 16.125rem;
+        padding: clamp(1.5rem, 2.08vw, 1.875rem)
+          clamp(1.6rem, 2.43vw, 2.1875rem);
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      #prizes .badge {
+        min-height: 2.56rem;
+        padding: 0.5rem 1.25rem;
+        font-size: clamp(0.95rem, 1.25vw, 1.125rem);
+        line-height: 1.4;
+        font-weight: 500;
+      }
+      #prizes .prize-name {
+        margin-top: auto;
+        margin-bottom: clamp(1.3rem, 2.08vw, 1.875rem);
+        font-size: clamp(1.45rem, 2.22vw, 2rem);
+        line-height: 1.3;
+        font-weight: 700;
+      }
+      #prizes .prize-desc {
+        font-size: clamp(1rem, 1.25vw, 1.125rem);
+        line-height: 1.3;
+      }
+      #prizes .prize-visual {
+        top: clamp(1.25rem, 1.53vw, 1.375rem);
+        right: clamp(-0.2rem, 1vw, 1.25rem);
+        width: clamp(7rem, 10vw, 9rem);
+      }
+
+      .chip-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-top: 1rem;
+        margin-bottom: 1.3rem;
+      }
+      .chip {
+        background: var(--chip);
+        color: var(--ink);
+        border-radius: 999rem;
+        padding: 0.62rem 0.95rem;
+        font-size: clamp(0.86rem, 1.3vw, 1rem);
+      }
+      .idea-card {
+        margin-top: 1.2rem;
+        background: #f4f7fe;
+        border-radius: var(--card-radius);
+        padding: clamp(1.4rem, 2.45vw, 2.75rem) clamp(1.1rem, 2.45vw, 2.2rem);
+        color: var(--ink);
+      }
+      #what {
+        min-height: clamp(32rem, 49.86vw, 44.875rem);
+        padding: clamp(4rem, 6.86vw, 6.19rem) clamp(2rem, 4.72vw, 4.25rem);
+        overflow: hidden;
+        isolation: isolate;
+      }
+      #what::before {
+        content: "";
+        position: absolute;
+        inset: -60% -10% -55% 18%;
+        z-index: -1;
+        background: url("img/has-idea.svg") center / contain no-repeat;
+        opacity: 0.8;
+        transform: rotate(0.01deg);
+        pointer-events: none;
+      }
+      .has-idea-content {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 75rem);
+      }
+      #what .h2 {
+        font-size: clamp(3rem, 6.25vw, 5.625rem);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+      .has-idea-lead {
+        width: min(100%, 70.125rem);
+        margin-top: clamp(1.2rem, 2.43vw, 2.19rem);
+        color: rgba(255, 255, 255, 0.6);
+        font-size: clamp(1rem, 1.53vw, 1.375rem);
+        line-height: 1.3;
+        font-weight: 400;
+      }
+      #what .idea-card {
+        width: min(100%, 75.2rem);
+        margin-top: clamp(3rem, 5.55vw, 5rem);
+        border-radius: var(--card-radius);
+        padding: clamp(1.7rem, 3.05vw, 2.75rem) clamp(1.35rem, 2.43vw, 2.19rem);
+      }
+      .idea-card-title {
+        font-size: clamp(1.35rem, 2.22vw, 2rem);
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        font-weight: 700;
+      }
+      #what .chip-wrap {
+        width: min(100%, 68.375rem);
+        margin-top: clamp(1.6rem, 2.36vw, 2.125rem);
+        margin-bottom: clamp(1.6rem, 2.36vw, 2.125rem);
+        gap: 1rem;
+      }
+      #what .chip {
+        padding: 0.9rem 1rem;
+        background: var(--chip);
+        font-size: clamp(0.95rem, 1.25vw, 1.125rem);
+        line-height: 1.3;
+      }
+      .idea-submit {
+        gap: 0.65rem;
+        min-height: 3.125rem;
+        padding: 0.31rem 0.31rem 0.31rem 1.32rem;
+        font-size: clamp(1rem, 1.25vw, 1.125rem);
+        font-weight: 700;
+      }
+
+      .steps-grid {
+        display: grid;
+        gap: clamp(0.85rem, 1.18vw, 1.06rem);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .step-card {
+        background: #f4f7fe;
+        border-radius: var(--card-radius);
+        padding: clamp(1.25rem, 2.08vw, 1.875rem);
+        min-height: 19.6rem;
+        display: grid;
+        gap: 1.55rem;
+        align-content: start;
+      }
+      .step-n {
+        color: var(--blue);
+        font-weight: 800;
+        font-size: 1.2rem;
+      }
+      .step-title {
+        font-size: clamp(1.05rem, 1.9vw, 1.5rem);
+        font-weight: 700;
+      }
+      .step-copy {
+        color: var(--ink-soft);
+      }
       #how {
-        min-height: auto;
-        padding: 2.5rem 1.25rem;
+        min-height: clamp(64rem, 85.42vw, 76.875rem);
+        padding: clamp(4rem, 6.94vw, 6.25rem) clamp(2rem, 4.72vw, 4.25rem);
       }
-      #how .steps-grid,
+      #how > .h2,
+      #who .h2 {
+        font-size: clamp(3.4rem, 6.25vw, 5.625rem);
+        line-height: 1.3;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      #how .steps-grid {
+        gap: clamp(0.8rem, 1.18vw, 1.0625rem);
+        margin-top: clamp(3rem, 4.44vw, 4rem);
+      }
+      #how .step-card {
+        min-height: 19.625rem;
+        padding: clamp(1.25rem, 1.39vw, 1.25rem) clamp(0.75rem, 0.83vw, 0.75rem)
+          clamp(3rem, 4.86vw, 4.375rem) clamp(1.5rem, 2.08vw, 1.875rem);
+        gap: clamp(1.25rem, 1.74vw, 1.5625rem);
+      }
+      #how .step-n {
+        font-size: clamp(1.25rem, 1.8vw, 1.625rem);
+        line-height: normal;
+        font-weight: 800;
+      }
+      #how .step-title {
+        font-size: clamp(1.3rem, 1.8vw, 1.625rem);
+        line-height: 1.3;
+        font-weight: 700;
+      }
+      #how .step-copy {
+        font-size: clamp(1rem, 1.25vw, 1.125rem);
+        line-height: 1.33;
+        color: rgba(0, 0, 0, 0.6);
+      }
+      #who {
+        margin-top: clamp(2.5rem, 3.19vw, 2.875rem);
+      }
+      #who .h2 {
+        line-height: 1.1;
+      }
+      #who .sub {
+        margin-top: clamp(2rem, 2.92vw, 2.625rem);
+        font-size: clamp(1rem, 1.53vw, 1.375rem);
+        line-height: 1.33;
+      }
+
+      .score-grid {
+        display: grid;
+        gap: clamp(1rem, 1.4vw, 1.25rem);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: clamp(2rem, 3.8vw, 3.45rem);
+      }
+      .score-card {
+        border-radius: var(--card-radius);
+        padding: clamp(1.35rem, 2.45vw, 2.2rem);
+        min-height: 16.875rem;
+        display: grid;
+        gap: clamp(1.2rem, 2.1vw, 1.9rem);
+        align-content: start;
+        overflow: hidden;
+        position: relative;
+      }
+      .score-card > :not(.score-visual) {
+        position: relative;
+        z-index: 1;
+      }
+      .score-blue {
+        background: var(--blue);
+        color: var(--white);
+      }
+      .score-lime {
+        background: var(--lime);
+        color: var(--ink);
+      }
+      .score-visual {
+        position: absolute;
+        right: clamp(0.5rem, 2vw, 2rem);
+        top: clamp(1rem, 2vw, 1.9rem);
+        width: clamp(5.8rem, 10vw, 9.2rem);
+        max-width: 38%;
+        pointer-events: none;
+      }
+      .score-lime .score-visual {
+        width: clamp(4.8rem, 7vw, 6.25rem);
+        right: clamp(1.1rem, 2.4vw, 2.5rem);
+        top: clamp(0.9rem, 1.4vw, 1.25rem);
+      }
+      .score-n {
+        width: fit-content;
+        background: var(--white);
+        color: var(--ink);
+        border-radius: 999rem;
+        padding: 0.3rem 0.7rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+      .score-lime .score-n {
+        background: var(--ink);
+        color: var(--white);
+      }
+      .score-title {
+        font-size: clamp(1.05rem, 2vw, 1.65rem);
+        font-weight: 800;
+        line-height: 1.15;
+      }
+      .score-copy {
+        color: rgba(255, 255, 255, 0.84);
+      }
+      .score-lime .score-copy {
+        color: rgba(9, 8, 31, 0.75);
+      }
       #who .score-grid {
-        margin-top: 2rem;
+        gap: clamp(1rem, 1.39vw, 1.25rem);
+        margin-top: clamp(2.8rem, 3.82vw, 3.4375rem);
       }
-      #how .step-card,
       #who .score-card {
-        min-height: auto;
+        min-height: 16.875rem;
+        padding: clamp(1.5rem, 2.08vw, 1.875rem)
+          clamp(1.75rem, 2.43vw, 2.1875rem);
+        display: flex;
+        flex-direction: column;
+        gap: 0;
       }
-      #who { margin-top: 3rem; }
-      .winner-note { margin-top: 1.8rem; }
+      #who .score-n {
+        padding: 0.5rem 1.25rem;
+        font-size: clamp(1rem, 1.25vw, 1.125rem);
+        line-height: 1.4;
+        font-weight: 500;
+      }
+      #who .score-title {
+        margin-top: auto;
+        margin-bottom: clamp(1.4rem, 2.08vw, 1.875rem);
+        font-size: clamp(1.55rem, 2.22vw, 2rem);
+        line-height: 1.3;
+        font-weight: 700;
+      }
+      #who .score-copy {
+        width: min(100%, 20.4375rem);
+        font-size: clamp(1rem, 1.25vw, 1.125rem);
+        line-height: 1.33;
+        color: var(--white);
+      }
+      #who .score-lime .score-copy {
+        color: var(--ink);
+      }
+      #who .score-visual {
+        top: clamp(1.25rem, 2.08vw, 1.875rem);
+        right: clamp(1.4rem, 2.3vw, 2.05rem);
+        width: clamp(6.5rem, 9.17vw, 8.25rem);
+        max-width: 38%;
+      }
+      #who .score-lime .score-visual {
+        top: clamp(1rem, 1.39vw, 1.25rem);
+        right: clamp(1.6rem, 2.28vw, 2.06rem);
+        width: clamp(5.6rem, 6.94vw, 6.25rem);
+        max-width: 30%;
+      }
+      .winner-note {
+        position: relative;
+        width: fit-content;
+        margin: clamp(1.35rem, 1.95vw, 1.75rem) auto 0;
+        font-size: clamp(1rem, 1.53vw, 1.375rem);
+        line-height: 1.33;
+        font-weight: 600;
+        text-align: center;
+      }
+      .winner-word {
+        position: relative;
+        display: inline-block;
+      }
       .winner-emphasis {
-        width: 6.8rem;
+        position: absolute;
+        left: 50%;
+        top: calc(100% + 0.25rem);
+        transform: translateX(-50%);
+        width: clamp(6.7rem, 9.65vw, 8.6875rem);
+        height: auto;
+        pointer-events: none;
+      }
+
+      .criteria-wrap {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+      }
+      .criteria-card {
+        background: var(--white);
+        border-radius: var(--small-radius);
+        color: var(--ink);
+        padding: clamp(1.25rem, 2.45vw, 2.2rem);
+        display: grid;
+        gap: 0.5rem;
+        align-content: start;
+      }
+      .criteria-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.2rem;
+        font-weight: 800;
+      }
+      .criteria-index {
+        color: var(--blue);
       }
       .criteria-section {
-        min-height: auto;
-        padding: 2.5rem 1.25rem;
+        min-height: clamp(42rem, 53.54vw, 48.1875rem);
+        padding: clamp(3.5rem, 6.39vw, 5.75rem) clamp(2rem, 5.21vw, 4.6875rem);
+        overflow: hidden;
+        isolation: isolate;
+      }
+      .criteria-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: url("img/what-estimate.svg") center / cover no-repeat;
+        pointer-events: none;
+      }
+      .criteria-section > * {
+        position: relative;
+        z-index: 1;
+      }
+      .criteria-section .h2 {
+        width: min(100%, 41.5625rem);
+        font-size: clamp(3.4rem, 6.25vw, 5.625rem);
+        line-height: 1.3;
+        font-weight: 700;
+        letter-spacing: -0.02em;
       }
       .criteria-section .criteria-wrap {
-        margin-top: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: clamp(1rem, 1.46vw, 1.3125rem);
+        width: min(100%, 74.375rem);
+        margin-top: clamp(3rem, 4.17vw, 3.75rem);
       }
-      .criteria-section .criteria-card,
-      .criteria-section .criteria-card:nth-child(n + 3):nth-child(-n + 4),
+      .criteria-section .criteria-card {
+        width: min(100%, 32.5625rem);
+        min-height: 8.375rem;
+        padding: 1.875rem 2.1875rem;
+        border-radius: var(--small-radius);
+        gap: 1rem;
+        overflow: hidden;
+      }
+      .criteria-section .criteria-card:nth-child(n + 3):nth-child(-n + 4) {
+        width: min(100%, 36.4375rem);
+      }
       .criteria-section .criteria-card:nth-child(5) {
-        width: 100%;
+        width: min(100%, 52.3125rem);
       }
       .criteria-section .criteria-title {
-        white-space: normal;
+        gap: 0.875rem;
+        font-size: clamp(1.55rem, 1.94vw, 1.75rem);
+        line-height: 1.3;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      .criteria-section .criteria-index {
+        font-weight: 800;
+      }
+      .criteria-section .criteria-card p {
+        font-size: clamp(1rem, 1.25vw, 1.125rem);
+        line-height: 1.33;
+      }
+
+      .contact-form {
+        margin-top: clamp(2rem, 3.6vw, 3.25rem);
+        display: grid;
+        gap: clamp(1.25rem, 2.1vw, 2.1rem);
+      }
+      label {
+        font-size: 1rem;
+        font-weight: 500;
+      }
+      textarea,
+      input[type="text"] {
+        width: 100%;
+        border: 0;
+        border-radius: var(--small-radius);
+        padding: 1.75rem 2.2rem;
+        font-family: inherit;
+        font-size: 1rem;
+        background: #f5f5f6;
+        color: var(--ink);
+      }
+      textarea {
+        resize: vertical;
+        min-height: 9rem;
+      }
+      textarea:focus,
+      input:focus {
+        outline: 2px solid var(--blue);
+      }
+      .field-error {
+        outline: 2px solid #ff5d7d !important;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        align-items: end;
+      }
+      .help {
+        color: var(--lime);
+        font-size: clamp(0.88rem, 1.5vw, 1.05rem);
+        font-weight: 700;
+        text-wrap: balance;
+        max-width: 26rem;
+      }
+      .help a {
+        color: var(--blue);
+      }
+
+      #form {
+        min-height: clamp(40rem, 55.5vw, 49.94rem);
+        padding: clamp(3rem, 6.9vw, 6.2rem) clamp(2rem, 5.4vw, 4.75rem);
+        display: flex;
+        align-items: center;
+      }
+      .form-content {
+        width: min(100%, 74rem);
+        margin-inline: auto;
+      }
+      #form .h2 {
+        font-size: clamp(3.25rem, 6.25vw, 5.625rem);
+        line-height: 1.12;
+        letter-spacing: -0.022em;
+      }
+      #form .sub {
+        width: min(100%, 73.6rem);
+        margin-top: clamp(1rem, 2vw, 1.875rem);
+        color: rgba(255, 255, 255, 0.6);
+        font-size: clamp(1rem, 1.53vw, 1.375rem);
+        line-height: 1.32;
+      }
+      .form-field {
+        display: grid;
+        gap: 1.25rem;
+      }
+      .form-field label {
+        color: var(--white);
+        font-size: clamp(1rem, 1.25vw, 1.125rem);
+        line-height: 1.35;
+        font-weight: 400;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      #form textarea,
+      #form input[type="text"] {
+        border-radius: var(--small-radius);
+        background: #f5f5f6;
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.5;
+        padding: 1.875rem 2.1875rem;
+      }
+      #form textarea {
+        min-height: 9rem;
+        max-height: 16rem;
+      }
+      #form input[type="text"] {
+        height: 5rem;
+        padding-block: 1.625rem;
+      }
+      #form textarea::placeholder,
+      #form input::placeholder {
+        color: rgba(9, 8, 31, 0.5);
+        opacity: 1;
+      }
+      #form .form-row {
+        display: flex;
+        align-items: center;
+        gap: clamp(1.5rem, 3.55vw, 3.1875rem);
+        margin-top: clamp(0.25rem, 0.8vw, 0.65rem);
+      }
+      #form .btn-submit {
+        width: 15.1875rem;
+        min-height: 4rem;
+        flex: 0 0 auto;
+        padding-inline: 1.5rem;
+        font-size: clamp(1rem, 1.25vw, 1.125rem);
+        white-space: nowrap;
+      }
+      #form .help {
+        max-width: none;
+        display: grid;
+        gap: 0.8rem;
+        color: var(--lime);
+        font-size: clamp(1rem, 1.53vw, 1.375rem);
+        line-height: 1.25;
+        font-weight: 700;
+        text-align: left;
+      }
+      #form .help span {
+        color: var(--white);
+        font-size: clamp(0.95rem, 1.25vw, 1.125rem);
+        font-weight: 400;
+      }
+      #form .help a {
+        color: var(--blue);
+        font: inherit;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      #form .help a:visited {
+        color: var(--blue);
+      }
+      #form .help a:hover {
+        color: #6fa0ff;
+      }
+
+      footer {
+        width: 100vw;
+        margin-left: calc((100% - 100vw) / 2);
+        margin-top: clamp(1.5rem, 4.2vw, 3.75rem);
+        background: var(--blue-dark);
+        color: rgba(255, 255, 255, 0.56);
+        border-top-left-radius: var(--panel-radius);
+        border-top-right-radius: var(--panel-radius);
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        overflow: hidden;
       }
       .footer-inner {
-        width: 100%;
-        min-height: auto;
-        padding: 2rem 1.25rem;
+        width: min(calc(100vw - 15.625rem), 74.75rem);
+        min-height: clamp(8.75rem, 14vw, 12.5rem);
+        padding: clamp(2rem, 2.92vw, 2.625rem) 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+      .footer-logo {
+        font-size: 1.35rem;
+        color: var(--white);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+      .footer-logo img {
+        width: clamp(8.5rem, 14.72vw, 13.25rem);
       }
       .footer-inner p {
-        margin-top: 1rem;
+        margin-top: clamp(1.8rem, 3.61vw, 3.25rem);
+        font-size: clamp(1rem, 1.25vw, 1.125rem);
+        line-height: normal;
       }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header class="site-nav" id="top">
-      <a class="logo" href="#top" aria-label="VEBTECH">
-        <img src="img/vebtech_logo_black.svg" alt="VEBTECH">
-      </a>
-      <nav class="menu">
-        <a href="#prizes">Призы</a>
-        <a href="#what">Что присылать</a>
-        <a href="#how">Как участвовать</a>
-        <a href="#who">Кто выбирает</a>
-      </nav>
-      <a href="#form" class="btn btn-blue">Подать идею</a>
-    </header>
 
-    <section class="hero">
-      <div class="hero-tag">VEBTECH × БЕЛВЭБВОЛНА · 25 ИЮЛЯ · <span style="color: var(--lime); margin-left: 0.35rem;">SUMMER PITCH DAY</span></div>
-      <div class="hero-title-wrap">
-        <h1 class="hero-headline">Идея<br><span class="hero-capsule">MacBook Air</span></h1>
-        <img class="hero-emphasis" src="img/top-arrow.svg" alt="" aria-hidden="true">
-      </div>
-      <p class="hero-copy">Принеси идею. Прокачай с ментором. Расскажи. Забери MAC.</p>
-      <div class="hero-actions">
-        <a href="#form" class="btn btn-lime">Подать идею <span class="play-dot"><img src="img/play-button.svg" alt="" aria-hidden="true"></span></a>
-        <a href="#how" class="btn btn-ghost">Как это работает?</a>
-      </div>
-    </section>
+      .modal {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: rgba(3, 4, 14, 0.56);
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.2s ease;
+        z-index: 9;
+      }
+      .modal.open {
+        visibility: visible;
+        opacity: 1;
+      }
+      .modal-card {
+        width: min(92vw, 30rem);
+        background: var(--white);
+        border-radius: 1.2rem;
+        padding: 1.5rem;
+        display: grid;
+        gap: 1rem;
+      }
+      .modal h3 {
+        font-size: 1.4rem;
+      }
+      .modal p {
+        color: var(--ink-soft);
+      }
 
-    <div class="ticker" aria-label="Этапы pitch day">
-      <div class="ticker-track">
-        <span class="ticker-line">Предлагай <span class="sep">✦</span> Собирай <span class="sep">✦</span> Отправляй <span class="sep">✦</span> Прокачивай <span class="sep">✦</span> Запускай <span class="sep">✦</span> Выступай <span class="sep">✦</span> Побеждай</span>
-        <span class="ticker-line" aria-hidden="true">Предлагай <span class="sep">✦</span> Собирай <span class="sep">✦</span> Отправляй <span class="sep">✦</span> Прокачивай <span class="sep">✦</span> Запускай <span class="sep">✦</span> Выступай <span class="sep">✦</span> Побеждай</span>
-      </div>
-    </div>
+      @media (max-width: 64rem) {
+        .prize-grid,
+        .steps-grid,
+        .score-grid,
+        .criteria-wrap {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+          align-items: start;
+        }
+        .hero {
+          background-position: 58% center;
+        }
+        #form {
+          min-height: auto;
+          align-items: stretch;
+        }
+        #form .form-row {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        #what {
+          min-height: auto;
+        }
+        #what::before {
+          inset: -35% -45% -25% 8%;
+          opacity: 0.55;
+        }
+      }
+      @media (max-width: 44rem) {
+        html,
+        body {
+          width: 100%;
+          max-width: 100%;
+          overflow-x: hidden;
+        }
+        .container {
+          width: 100dvw;
+          max-width: 100%;
+          margin-inline: 0;
+          overflow-x: clip;
+        }
+      .stack {
+        margin-top: 32px;
+      }
+        .site-nav,
+        .ticker,
+        .hero,
+        .panel,
+        footer {
+          width: 100%;
+          max-width: 100%;
+          margin-inline: 0;
+        }
+        .prize-grid,
+        .steps-grid,
+        .score-grid,
+        .criteria-wrap {
+          grid-template-columns: 1fr;
+        }
+        #prizes .h2 {
+          word-break: break-word;
+        }
+        .menu {
+          order: 3;
+          width: 100%;
+          justify-content: center;
+          gap: 0.55rem 0.8rem;
+        }
+        .menu a {
+          font-size: 1rem;
+        }
+        .menu a:first-child::after {
+          display: none;
+        }
+        .site-nav {
+          align-items: flex-start;
+          padding-inline: 1.25rem;
+          border-radius: 0 0 var(--panel-radius) var(--panel-radius);
+        }
+        .site-nav .btn-blue {
+          order: 2;
+          width: 100%;
+          margin-left: 0;
+        }
+        .hero-headline {
+          line-height: 1.02;
+        }
+        .hero {
+          min-height: 31rem;
+          aspect-ratio: auto;
+          background-image: none;
+          background-color: var(--blue-dark);
+        }
+        .hero-tag {
+          position: relative;
+          left: auto;
+          top: auto;
+          white-space: normal;
+          display: block;
+          text-align: center;
+        }
+        .hero-emphasis {
+          left: clamp(10.5rem, 43vw, 14rem);
+          right: auto;
+          top: -0.25rem;
+          width: 6rem;
+        }
+        .hero-title-wrap {
+          position: relative;
+          left: auto;
+          top: auto;
+          margin-top: clamp(1rem, 10vw, 8rem);
+          margin-left: 0;
+        }
+        .hero-copy,
+        .hero-actions {
+          position: relative;
+          left: auto;
+          right: auto;
+          top: auto;
+          bottom: auto;
+          max-width: 100%;
+        }
+        .hero-copy {
+          width: 100%;
+          max-width: none;
+          margin-top: 1.4rem;
+        }
+        .hero-actions {
+          justify-content: flex-start;
+          margin-top: 1.2rem;
+        }
+        .hero-actions .btn {
+          width: 100%;
+        }
+      .step-card,
+      .score-card {
+          min-height: auto;
+        }
+      #prizes .prize-card {
+        min-height: 13rem;
+      }
+        .prize-visual,
+        .score-visual {
+          opacity: 0.45;
+          right: 0.8rem;
+          width: 5rem;
+        }
+        textarea,
+        input[type="text"] {
+          padding: 1.1rem 1.2rem;
+        }
+        #form {
+          padding: 2.3rem 1.25rem;
+        }
+        #form textarea,
+        #form input[type="text"] {
+          padding: 1.1rem 1.2rem;
+        }
+        #form input[type="text"] {
+          height: 4rem;
+        }
+        #form .btn-submit {
+          width: 100%;
+        }
+        #what {
+          padding: 2.5rem 1.25rem;
+        }
+        #what .idea-card {
+          margin-top: 2rem;
+        }
+        #what .chip-wrap {
+          gap: 0.6rem;
+        }
+        #what .chip {
+          width: 100%;
+          white-space: normal;
+        }
+        .idea-submit {
+          width: 100%;
+        }
+        #how {
+          min-height: auto;
+          padding: 2.5rem 1.25rem;
+        }
+        #how .steps-grid,
+        #who .score-grid {
+          margin-top: 2rem;
+        }
+        #how .step-card,
+        #who .score-card {
+          min-height: auto;
+        }
+        #who {
+          margin-top: 3rem;
+        }
+        .winner-note {
+          margin-top: 1.8rem;
+        }
+        .winner-emphasis {
+          width: 6.8rem;
+        }
+        .criteria-section {
+          min-height: auto;
+          padding: 2.5rem 1.25rem;
+        }
+        .criteria-section .criteria-wrap {
+          margin-top: 2rem;
+        }
+        .criteria-section .criteria-card,
+        .criteria-section .criteria-card:nth-child(n + 3):nth-child(-n + 4),
+        .criteria-section .criteria-card:nth-child(5) {
+          width: 100%;
+        }
+        .criteria-section .criteria-title {
+          white-space: normal;
+        }
+        .footer-inner {
+          width: 100%;
+          min-height: auto;
+          padding: 2rem 1.25rem;
+        }
+        footer {
+          border-radius: var(--panel-radius) var(--panel-radius) 0 0;
+        }
+        .footer-inner p {
+          margin-top: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="site-nav" id="top">
+        <a class="logo" href="#top" aria-label="VEBTECH">
+          <img src="img/vebtech_logo_black.svg" alt="VEBTECH" />
+        </a>
+        <nav class="menu">
+          <a href="#prizes">Призы</a>
+          <a href="#what">Что присылать</a>
+          <a href="#how">Как участвовать</a>
+          <a href="#who">Кто выбирает</a>
+        </nav>
+        <a href="#form" class="btn btn-blue">Подать идею</a>
+      </header>
 
-    <main class="stack">
-      <section id="prizes" class="panel panel-white section-pad">
-        <h2 class="h2"><span style="color: var(--blue);">Призы,</span> которые вдохновляют</h2>
-        <p class="sub">Не сувениры на полку. Инструменты, чтобы быть на волне ИИ!</p>
-        <div class="prize-grid">
-          <article class="prize-card prize-main">
-            <div class="badge">Главный приз · 1 место</div>
-            <h3 class="prize-name">MacBook Air</h3>
-            <p class="prize-desc">Твой новый компьютер для всего, что задумаешь дальше.</p>
-            <img class="prize-visual" src="img/apple.svg" alt="" aria-hidden="true">
-          </article>
-          <article class="prize-card prize-sub">
-            <div class="badge">2 место</div>
-            <h3 class="prize-name">Perplexity Pro</h3>
-            <p class="prize-desc">Анализ, ресёрч и проверка гипотез.</p>
-            <img class="prize-visual" src="img/perplexity.svg" alt="" aria-hidden="true">
-          </article>
-          <article class="prize-card prize-sub">
-            <div class="badge">3 место</div>
-            <h3 class="prize-name">Gemini Advanced</h3>
-            <p class="prize-desc">Личный проводник по идеям и решениям.</p>
-            <img class="prize-visual" src="img/gemini.svg" alt="" aria-hidden="true">
-          </article>
+      <section class="hero">
+        <div class="hero-tag">
+          VEBTECH × БЕЛВЭБВОЛНА · 25 ИЮЛЯ ·
+          <span style="color: var(--lime); margin-left: 0.35rem"
+            >SUMMER PITCH DAY</span
+          >
+        </div>
+        <div class="hero-title-wrap">
+          <h1 class="hero-headline">
+            Идея<br /><span class="hero-capsule">MacBook Air</span>
+          </h1>
+          <img
+            class="hero-emphasis"
+            src="img/top-arrow.svg"
+            alt=""
+            aria-hidden="true"
+          />
+        </div>
+        <p class="hero-copy">
+          Принеси идею. Прокачай с ментором. Расскажи. Забери MAC.
+        </p>
+        <div class="hero-actions">
+          <a href="#form" class="btn btn-lime"
+            >Подать идею
+            <span class="play-dot"
+              ><img src="img/play-button.svg" alt="" aria-hidden="true" /></span
+          ></a>
+          <a href="#how" class="btn btn-ghost">Как это работает?</a>
         </div>
       </section>
 
-      <section id="what" class="panel panel-blue section-pad">
-        <div class="has-idea-content">
-          <h2 class="h2">Есть идея?</h2>
-          <p class="has-idea-lead">
-            Придумал, как сделать проще. Увидел, где утекает время. Знаешь, как сделать лучше. Без бизнес-планов, без рамок, без «опиши по форме». Есть мысль, которая давно вертится в голове — это уже идея. Пиши.
+      <div class="ticker" aria-label="Этапы pitch day">
+        <div class="ticker-track">
+          <span class="ticker-line"
+            >Предлагай <span class="sep">✦</span> Собирай
+            <span class="sep">✦</span> Отправляй
+            <span class="sep">✦</span> Прокачивай
+            <span class="sep">✦</span> Запускай
+            <span class="sep">✦</span> Выступай
+            <span class="sep">✦</span> Побеждай</span
+          >
+          <span class="ticker-line" aria-hidden="true"
+            >Предлагай <span class="sep">✦</span> Собирай
+            <span class="sep">✦</span> Отправляй
+            <span class="sep">✦</span> Прокачивай
+            <span class="sep">✦</span> Запускай
+            <span class="sep">✦</span> Выступай
+            <span class="sep">✦</span> Побеждай</span
+          >
+        </div>
+      </div>
+
+      <main class="stack">
+        <section id="prizes" class="panel panel-white section-pad">
+          <h2 class="h2">
+            <span style="color: var(--blue)">Призы,</span> которые вдохновляют
+          </h2>
+          <p class="sub">
+            Не сувениры на полку. Инструменты, чтобы быть на волне ИИ!
           </p>
-          <div class="idea-card">
-            <h3 class="idea-card-title">О чём писать? Всё, что угодно для банка и клиентов:</h3>
-            <div class="chip-wrap">
-              <span class="chip">Что тебя бесит и как это починить</span>
-              <span class="chip">Что болит у тебя или у коллег</span>
-              <span class="chip">Где можно сэкономить время или силы</span>
-              <span class="chip">Идея, которую хочется наконец попробовать</span>
-              <span class="chip">Что-то новое, чего ещё ни у кого нет</span>
-            </div>
-            <a href="#form" class="btn btn-lime idea-submit">Отправить идею <span class="play-dot"><img src="img/play-button.svg" alt="" aria-hidden="true"></span></a>
-          </div>
-        </div>
-      </section>
-
-      <section id="how" class="panel panel-white section-pad">
-        <h2 class="h2">Как участвовать</h2>
-        <div class="steps-grid">
-          <article class="step-card">
-            <span class="step-n">01</span>
-            <h3 class="step-title">Пришли свою идею</h3>
-            <p class="step-copy">Опиши идею в свободной форме и оставь контакт</p>
-          </article>
-          <article class="step-card">
-            <span class="step-n">02</span>
-            <h3 class="step-title">Отбор финалистов</h3>
-            <p class="step-copy">Мы отбираем финалистов. Тот, кто не прошёл — получит полный разбор.</p>
-          </article>
-          <article class="step-card">
-            <span class="step-n">03</span>
-            <h3 class="step-title">Подготовка с ментором</h3>
-            <p class="step-copy">Упаковка твоей идеи в готовое выступление: презентация, ответы на вопросы.</p>
-          </article>
-          <article class="step-card">
-            <span class="step-n">04</span>
-            <h3 class="step-title">Выступление</h3>
-            <p class="step-copy">На БелВЭБволне. Признание, победа.</p>
-          </article>
-        </div>
-
-        <div id="who">
-          <h2 class="h2">Три этапа оценки</h2>
-          <p class="sub">Идею оценивают с трёх сторон.</p>
-          <div class="score-grid">
-            <article class="score-card score-blue">
-              <span class="score-n">01</span>
-              <h3 class="score-title">Участники</h3>
-              <p class="score-copy">Голосуют все участники БелВЭБволны.</p>
-            <img class="score-visual" src="img/participants.svg" alt="" aria-hidden="true">
-            </article>
-            <article class="score-card score-lime">
-              <span class="score-n">02</span>
-              <h3 class="score-title">ИИ-агент VEBTECH</h3>
-              <p class="score-copy">Оценивает идею по критериям, без эмоций.</p>
-            <img class="score-visual" src="img/ai-agent-vebtech.svg" alt="" aria-hidden="true">
-            </article>
-            <article class="score-card score-blue">
-              <span class="score-n">03</span>
-              <h3 class="score-title">Жюри</h3>
-              <p class="score-copy">Эксперты смотрят, насколько идея жизнеспособна.</p>
-            <img class="score-visual" src="img/jury.svg" alt="" aria-hidden="true">
-            </article>
-          </div>
-          <p class="winner-note"><span class="winner-word">Победитель <img class="winner-emphasis" src="img/emphasize.svg" alt="" aria-hidden="true"></span> — итоговая сумма баллов</p>
-        </div>
-      </section>
-
-      <section class="panel panel-blue criteria-section">
-        <h2 class="h2">Что оценивают</h2>
-        <div class="criteria-wrap">
-          <article class="criteria-card">
-            <h3 class="criteria-title"><span class="criteria-index">01</span> Масштаб</h3>
-            <p>Сколько людей выиграет, если идея заработает? Чем шире — тем сильнее.</p>
-          </article>
-          <article class="criteria-card">
-            <h3 class="criteria-title"><span class="criteria-index">02</span> Реальная польза</h3>
-            <p>Кому и насколько станет лучше — удобнее, быстрее, дешевле, проще.</p>
-          </article>
-          <article class="criteria-card">
-            <h3 class="criteria-title"><span class="criteria-index">03</span> Подходит банку</h3>
-            <p>Можно ли это вообще запустить у нас и встроить в работу.</p>
-          </article>
-          <article class="criteria-card">
-            <h3 class="criteria-title"><span class="criteria-index">04</span> Новизна</h3>
-            <p>Есть ли свежий взгляд или технология, которой ещё нет.</p>
-          </article>
-          <article class="criteria-card">
-            <h3 class="criteria-title"><span class="criteria-index">05</span> Скорость запуска</h3>
-            <p>Насколько идея близка к запуску здесь и сейчас, а не через несколько лет разработки.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="form" class="panel panel-dark section-pad">
-        <div class="form-content">
-          <h2 class="h2">Твоя <span style="color: var(--lime);">идея</span></h2>
-          <p class="sub">Просто впиши свою идею здесь — ментор свяжется с тобой и поможет с дальнейшими шагами</p>
-          <form id="pitchForm" class="contact-form" novalidate>
-            <div class="form-field">
-              <label class="sr-only" for="idea">Что хочешь улучшить, как это можно сделать</label>
-              <textarea id="idea" name="idea" required placeholder="Что хочешь улучшить, как это можно сделать..."></textarea>
-            </div>
-            <div class="form-field">
-              <label for="contact">Твой Telegram или телефон *</label>
-              <input id="contact" type="text" name="contact" required placeholder="@username или +375...">
-            </div>
-            <div class="form-row">
-              <button type="button" class="btn btn-lime btn-submit">✦ Подать идею ✦</button>
-              <p class="help">
-                Ментор напишет в течение пары рабочих дней
-                <span>Вопросы? <a href="https://t.me/msusarenko" target="_blank" rel="noopener">Написать ментору в Telegram</a></span>
+          <div class="prize-grid">
+            <article class="prize-card prize-main">
+              <div class="badge">Главный приз · 1 место</div>
+              <h3 class="prize-name">MacBook Air</h3>
+              <p class="prize-desc">
+                Твой новый компьютер для всего, что задумаешь дальше.
               </p>
+              <img
+                class="prize-visual"
+                src="img/apple.svg"
+                alt=""
+                aria-hidden="true"
+              />
+            </article>
+            <article class="prize-card prize-sub">
+              <div class="badge">2 место</div>
+              <h3 class="prize-name">Perplexity Pro</h3>
+              <p class="prize-desc">Анализ, ресёрч и проверка гипотез.</p>
+              <img
+                class="prize-visual"
+                src="img/perplexity.svg"
+                alt=""
+                aria-hidden="true"
+              />
+            </article>
+            <article class="prize-card prize-sub">
+              <div class="badge">3 место</div>
+              <h3 class="prize-name">Gemini Advanced</h3>
+              <p class="prize-desc">Личный проводник по идеям и решениям.</p>
+              <img
+                class="prize-visual"
+                src="img/gemini.svg"
+                alt=""
+                aria-hidden="true"
+              />
+            </article>
+          </div>
+        </section>
+
+        <section id="what" class="panel panel-blue section-pad">
+          <div class="has-idea-content">
+            <h2 class="h2">Есть идея?</h2>
+            <p class="has-idea-lead">
+              Придумал, как сделать проще. Увидел, где утекает время. Знаешь,
+              как сделать лучше. Без бизнес-планов, без рамок, без «опиши по
+              форме». Есть мысль, которая давно вертится в голове — это уже
+              идея. Пиши.
+            </p>
+            <div class="idea-card">
+              <h3 class="idea-card-title">
+                О чём писать? Всё, что угодно для банка и клиентов:
+              </h3>
+              <div class="chip-wrap">
+                <span class="chip">Что тебя бесит и как это починить</span>
+                <span class="chip">Что болит у тебя или у коллег</span>
+                <span class="chip">Где можно сэкономить время или силы</span>
+                <span class="chip"
+                  >Идея, которую хочется наконец попробовать</span
+                >
+                <span class="chip">Что-то новое, чего ещё ни у кого нет</span>
+              </div>
+              <a href="#form" class="btn btn-lime idea-submit"
+                >Отправить идею
+                <span class="play-dot"
+                  ><img
+                    src="img/play-button.svg"
+                    alt=""
+                    aria-hidden="true" /></span
+              ></a>
             </div>
-          </form>
+          </div>
+        </section>
+
+        <section id="how" class="panel panel-white section-pad">
+          <h2 class="h2">Как участвовать</h2>
+          <div class="steps-grid">
+            <article class="step-card">
+              <span class="step-n">01</span>
+              <h3 class="step-title">Пришли свою идею</h3>
+              <p class="step-copy">
+                Опиши идею в свободной форме и оставь контакт
+              </p>
+            </article>
+            <article class="step-card">
+              <span class="step-n">02</span>
+              <h3 class="step-title">Отбор финалистов</h3>
+              <p class="step-copy">
+                Мы отбираем финалистов. Тот, кто не прошёл — получит полный
+                разбор.
+              </p>
+            </article>
+            <article class="step-card">
+              <span class="step-n">03</span>
+              <h3 class="step-title">Подготовка с ментором</h3>
+              <p class="step-copy">
+                Упаковка твоей идеи в готовое выступление: презентация, ответы
+                на вопросы.
+              </p>
+            </article>
+            <article class="step-card">
+              <span class="step-n">04</span>
+              <h3 class="step-title">Выступление</h3>
+              <p class="step-copy">На БелВЭБволне. Признание, победа.</p>
+            </article>
+          </div>
+
+          <div id="who">
+            <h2 class="h2">Три этапа оценки</h2>
+            <p class="sub">Идею оценивают с трёх сторон.</p>
+            <div class="score-grid">
+              <article class="score-card score-blue">
+                <span class="score-n">01</span>
+                <h3 class="score-title">Участники</h3>
+                <p class="score-copy">Голосуют все участники БелВЭБволны.</p>
+                <img
+                  class="score-visual"
+                  src="img/participants.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+              </article>
+              <article class="score-card score-lime">
+                <span class="score-n">02</span>
+                <h3 class="score-title">ИИ-агент VEBTECH</h3>
+                <p class="score-copy">
+                  Оценивает идею по критериям, без эмоций.
+                </p>
+                <img
+                  class="score-visual"
+                  src="img/ai-agent-vebtech.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+              </article>
+              <article class="score-card score-blue">
+                <span class="score-n">03</span>
+                <h3 class="score-title">Жюри</h3>
+                <p class="score-copy">
+                  Эксперты смотрят, насколько идея жизнеспособна.
+                </p>
+                <img
+                  class="score-visual"
+                  src="img/jury.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+              </article>
+            </div>
+            <p class="winner-note">
+              <span class="winner-word"
+                >Победитель
+                <img
+                  class="winner-emphasis"
+                  src="img/emphasize.svg"
+                  alt=""
+                  aria-hidden="true"
+              /></span>
+              — итоговая сумма баллов
+            </p>
+          </div>
+        </section>
+
+        <section class="panel panel-blue criteria-section">
+          <h2 class="h2">Что оценивают</h2>
+          <div class="criteria-wrap">
+            <article class="criteria-card">
+              <h3 class="criteria-title">
+                <span class="criteria-index">01</span> Масштаб
+              </h3>
+              <p>
+                Сколько людей выиграет, если идея заработает? Чем шире — тем
+                сильнее.
+              </p>
+            </article>
+            <article class="criteria-card">
+              <h3 class="criteria-title">
+                <span class="criteria-index">02</span> Реальная польза
+              </h3>
+              <p>
+                Кому и насколько станет лучше — удобнее, быстрее, дешевле,
+                проще.
+              </p>
+            </article>
+            <article class="criteria-card">
+              <h3 class="criteria-title">
+                <span class="criteria-index">03</span> Подходит банку
+              </h3>
+              <p>Можно ли это вообще запустить у нас и встроить в работу.</p>
+            </article>
+            <article class="criteria-card">
+              <h3 class="criteria-title">
+                <span class="criteria-index">04</span> Новизна
+              </h3>
+              <p>Есть ли свежий взгляд или технология, которой ещё нет.</p>
+            </article>
+            <article class="criteria-card">
+              <h3 class="criteria-title">
+                <span class="criteria-index">05</span> Скорость запуска
+              </h3>
+              <p>
+                Насколько идея близка к запуску здесь и сейчас, а не через
+                несколько лет разработки.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="form" class="panel panel-dark section-pad">
+          <div class="form-content">
+            <h2 class="h2">
+              Твоя <span style="color: var(--lime)">идея</span>
+            </h2>
+            <p class="sub">
+              Просто впиши свою идею здесь — ментор свяжется с тобой и поможет с
+              дальнейшими шагами
+            </p>
+            <form id="pitchForm" class="contact-form" novalidate>
+              <div class="form-field">
+                <label class="sr-only" for="idea"
+                  >Что хочешь улучшить, как это можно сделать</label
+                >
+                <textarea
+                  id="idea"
+                  name="idea"
+                  required
+                  placeholder="Что хочешь улучшить, как это можно сделать..."
+                ></textarea>
+              </div>
+              <div class="form-field">
+                <label for="contact">Твой Telegram или телефон *</label>
+                <input
+                  id="contact"
+                  type="text"
+                  name="contact"
+                  required
+                  placeholder="@username или +375..."
+                />
+              </div>
+              <div class="form-row">
+                <button type="button" class="btn btn-lime btn-submit">
+                  ✦ Подать идею ✦
+                </button>
+                <p class="help">
+                  Ментор напишет в течение пары рабочих дней
+                  <span
+                    >Вопросы?
+                    <a
+                      href="https://t.me/msusarenko"
+                      target="_blank"
+                      rel="noopener"
+                      >Написать ментору в Telegram</a
+                    ></span
+                  >
+                </p>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      <div class="container footer-inner">
+        <div class="footer-logo">
+          <img src="img/vebtech-footer.svg" alt="VEBTECH" />
         </div>
-      </section>
-    </main>
-  </div>
+        <p>VEBTECH Summer Pitch Day · 2026</p>
+      </div>
+    </footer>
 
-  <footer>
-    <div class="container footer-inner">
-      <div class="footer-logo"><img src="img/vebtech-footer.svg" alt="VEBTECH"></div>
-      <p>VEBTECH Summer Pitch Day · 2026</p>
+    <div id="modal" class="modal">
+      <div class="modal-card">
+        <h3>Идея отправлена!</h3>
+        <p>
+          Спасибо! Ваша идея зарегистрирована. Организатор свяжется с вами в
+          Telegram или по телефону в течение 2 рабочих дней.
+        </p>
+        <button onclick="closeModal()" class="btn btn-blue">Отлично</button>
+      </div>
     </div>
-  </footer>
 
-  <div id="modal" class="modal">
-    <div class="modal-card">
-      <h3>Идея отправлена!</h3>
-      <p>Спасибо! Ваша идея зарегистрирована. Организатор свяжется с вами в Telegram или по телефону в течение 2 рабочих дней.</p>
-      <button onclick="closeModal()" class="btn btn-blue">Отлично</button>
-    </div>
-  </div>
-
-  <script>
-    document.querySelectorAll('a[href^="#"]').forEach((link) => {
-      link.addEventListener("click", (e) => {
-        const id = link.getAttribute("href");
-        const target = document.querySelector(id);
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+    <script>
+      document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        link.addEventListener("click", (e) => {
+          const id = link.getAttribute("href");
+          const target = document.querySelector(id);
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
       });
-    });
 
-    const form = document.getElementById("pitchForm");
-    const modal = document.getElementById("modal");
-    const FORM_ENDPOINT = "https://formspree.io/f/xpqerygv";
+      const form = document.getElementById("pitchForm");
+      const modal = document.getElementById("modal");
+      const FORM_ENDPOINT = "https://formspree.io/f/xpqerygv";
 
-    function closeModal() {
-      modal.classList.remove("open");
-      document.body.style.overflow = "";
-    }
+      function closeModal() {
+        modal.classList.remove("open");
+        document.body.style.overflow = "";
+      }
 
-    async function sendApplication(data) {
-      const res = await fetch(FORM_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          "Идея": data.idea,
-          "Контакт (Telegram/телефон)": data.contact,
-          "_subject": "Новая заявка — VEB Summer Pitch Day",
-        }),
-      });
-      if (!res.ok) throw new Error("send failed");
-      return res;
-    }
+      async function sendApplication(data) {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            Идея: data.idea,
+            "Контакт (Telegram/телефон)": data.contact,
+            _subject: "Новая заявка — VEB Summer Pitch Day",
+          }),
+        });
+        if (!res.ok) throw new Error("send failed");
+        return res;
+      }
 
-    async function handleSubmit(e) {
-      if (e) e.preventDefault();
-      const required = form.querySelectorAll("[required]");
-      let valid = true;
-      let firstInvalid = null;
+      async function handleSubmit(e) {
+        if (e) e.preventDefault();
+        const required = form.querySelectorAll("[required]");
+        let valid = true;
+        let firstInvalid = null;
 
-      required.forEach((field) => {
-        if (!field.value.trim()) {
-          field.classList.add("field-error");
-          valid = false;
-          if (!firstInvalid) firstInvalid = field;
+        required.forEach((field) => {
+          if (!field.value.trim()) {
+            field.classList.add("field-error");
+            valid = false;
+            if (!firstInvalid) firstInvalid = field;
+            return;
+          }
+          field.classList.remove("field-error");
+        });
+
+        if (!valid) {
+          if (firstInvalid) firstInvalid.focus();
           return;
         }
-        field.classList.remove("field-error");
+
+        const btn = form.querySelector(".btn-submit");
+        const btnText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = "Отправляем…";
+
+        try {
+          await sendApplication({
+            idea: form.querySelector('[name="idea"]').value.trim(),
+            contact: form.querySelector('[name="contact"]').value.trim(),
+          });
+          form.reset();
+          modal.classList.add("open");
+          document.body.style.overflow = "hidden";
+        } catch (err) {
+          alert(
+            "Не удалось отправить заявку. Попробуйте ещё раз или напишите организатору в Telegram.",
+          );
+        } finally {
+          btn.disabled = false;
+          btn.textContent = btnText;
+        }
+      }
+
+      const submitBtn = form.querySelector(".btn-submit");
+      submitBtn.addEventListener("click", handleSubmit);
+      form.querySelectorAll("[required]").forEach((field) => {
+        field.addEventListener("input", () =>
+          field.classList.remove("field-error"),
+        );
       });
-
-      if (!valid) {
-        if (firstInvalid) firstInvalid.focus();
-        return;
-      }
-
-      const btn = form.querySelector(".btn-submit");
-      const btnText = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = "Отправляем…";
-
-      try {
-        await sendApplication({
-          idea: form.querySelector('[name="idea"]').value.trim(),
-          contact: form.querySelector('[name="contact"]').value.trim(),
-        });
-        form.reset();
-        modal.classList.add("open");
-        document.body.style.overflow = "hidden";
-      } catch (err) {
-        alert("Не удалось отправить заявку. Попробуйте ещё раз или напишите организатору в Telegram.");
-      } finally {
-        btn.disabled = false;
-        btn.textContent = btnText;
-      }
-    }
-
-    const submitBtn = form.querySelector(".btn-submit");
-    submitBtn.addEventListener("click", handleSubmit);
-    form.querySelectorAll("[required]").forEach((field) => {
-      field.addEventListener("input", () => field.classList.remove("field-error"));
-    });
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
-    });
-  </script>
-</body>
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("open"))
+          closeModal();
+      });
+    </script>
+  </body>
 </html>
